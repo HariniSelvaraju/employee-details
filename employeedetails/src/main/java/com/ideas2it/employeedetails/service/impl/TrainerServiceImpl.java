@@ -1,18 +1,14 @@
 package com.ideas2it.employeedetails.service.impl;
 
-import com.ideas2it.employeedetails.constant.EmployeeConstants;
 import com.ideas2it.employeedetails.dto.TrainerDto;
 import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
 import com.ideas2it.employeedetails.helper.TrainerHelper;
 import com.ideas2it.employeedetails.model.Trainer;
 import com.ideas2it.employeedetails.repository.TrainerRepository;
 import com.ideas2it.employeedetails.service.TrainerService;
-import com.ideas2it.employeedetails.util.EmployeeUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,7 +41,7 @@ public class TrainerServiceImpl implements TrainerService {
      *
      * This method is used to get all trainee details from database.
      *
-     * @return {@link List <TrainerDto>}
+     * @return {@link List<TrainerDto>}
      */
     public List<TrainerDto> getTrainerDetails() throws EmployeeRuntimeException {
         List<Trainer> trainers = trainerRepository.findAll();
@@ -61,11 +57,11 @@ public class TrainerServiceImpl implements TrainerService {
 
     /**
      *
-     * This method is used to get a trainee details by Id.
+     * This method is used to get a trainee details by Id(primary key in database)
      *
-     * @param {@link String} TrainerId
+     * @param {@link int} id
      *
-     * @return {@link boolean}
+     * @return {@link TrainerDto}
      */
     public TrainerDto getTrainerDetailsById(int id) {
         Trainer trainer = trainerRepository.findById(id).get();
@@ -73,9 +69,10 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     /**
-     * This method is used to delete a trainee details by Id.
+     * This method is used to delete a trainee details by Id(primary key in database)
      *
-     * @param {@link String} TrainerId
+     * @param {@link int} id
+     *
      * @return {@link boolean}
      */
     public boolean deleteTrainerDetailsById(int id) {
@@ -89,14 +86,15 @@ public class TrainerServiceImpl implements TrainerService {
 
     /**
      *
-     * This method is used to update trainee details by Id.
+     * This method is used to update trainee details
      *
-     * @param {@link String} employeeId
+     * @param {@link int} id
+     *
      * @param {@link TrainerDto} trainerDto
      *
-     * @return boolean
+     * @return {@link TrainerDto}
      */
-    public TrainerDto updateTrainerById(TrainerDto trainerDto) {
+    public TrainerDto updateTrainerDetails(TrainerDto trainerDto) {
         return TrainerHelper.changeTrainerToDto(trainerRepository.save(TrainerHelper.changeDtoToTrainer(trainerDto)));
     }
 }

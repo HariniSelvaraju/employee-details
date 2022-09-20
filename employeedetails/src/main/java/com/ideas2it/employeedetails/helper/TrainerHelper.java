@@ -2,10 +2,9 @@ package com.ideas2it.employeedetails.helper;
 
 import com.ideas2it.employeedetails.dto.TrainerDto;
 import com.ideas2it.employeedetails.model.Trainer;
-import net.bytebuddy.dynamic.DynamicType;
+
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class TrainerHelper {

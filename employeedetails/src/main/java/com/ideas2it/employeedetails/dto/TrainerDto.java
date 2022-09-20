@@ -1,11 +1,8 @@
 package com.ideas2it.employeedetails.dto;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
 import java.time.Period;
 
-import com.ideas2it.employeedetails.constant.EmployeeConstants;
 import org.springframework.stereotype.Component;
 
 @Component

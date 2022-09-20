@@ -2,7 +2,7 @@ package com.ideas2it.employeedetails.service;
 
 import com.ideas2it.employeedetails.dto.TrainerDto;
 import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
-import java.util.HashMap;
+
 import java.util.List;
 
 public interface TrainerService {
@@ -18,16 +18,16 @@ public interface TrainerService {
     /**
      * method is used to get the list of all the trainer from Dao
      *
-     * @return {@link List < TrainerDto >}
+     * @return {@link List<TrainerDto>}
      */
     List<TrainerDto> getTrainerDetails() throws EmployeeRuntimeException;
 
     /**
      * method is used to add Trainer
      *
-     * @param {@link Integer} trainerDto
+     * @param {@link int} trainerDto
      *
-     * @return {@link TrainerDto} getTrainerDetailsById
+     * @return {@link TrainerDto}
      */
     TrainerDto getTrainerDetailsById(int id);
 
@@ -35,6 +35,7 @@ public interface TrainerService {
      * method is used to add Trainer
      *
      * @param {@link Trainer} trainer
+     *
      * @return {@link boolean}
      */
     boolean deleteTrainerDetailsById(int id);
@@ -46,6 +47,6 @@ public interface TrainerService {
      *
      * @return {@link TrainerDto}
      */
-    TrainerDto updateTrainerById(TrainerDto trainerDto);
+    TrainerDto updateTrainerDetails(TrainerDto trainerDto);
 
 }

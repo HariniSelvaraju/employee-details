@@ -43,7 +43,7 @@ public class TraineeServiceImpl implements TraineeService {
      *
      * This method is used to get all trainee details from database.
      *
-     * @return {@link List <TraineeDto>}
+     * @return {@link List<TraineeDto>}
      */
     public List<TraineeDto> getTraineeDetails() throws EmployeeRuntimeException {
         List<Trainee> trainees = traineeRepository.findAll();
@@ -59,11 +59,11 @@ public class TraineeServiceImpl implements TraineeService {
 
     /**
      *
-     * This method is used to get a trainee details by Id.
+     * This method is used to get a trainee details by Id(primary key in database)
      *
      * @param {@link String} TrainerId
      *
-     * @return {@link boolean}
+     * @return {@link TraineeDto}
      */
     public TraineeDto getTraineeDetailsById(int id) {
         Trainee trainee = traineeRepository.findById(id).get();
@@ -73,7 +73,7 @@ public class TraineeServiceImpl implements TraineeService {
     /**
      * This method is used to delete a trainee details by Id.
      *
-     * @param {@link String} TrainerId
+     * @param {@link int} TrainerId
      * @return {@link boolean}
      */
     public boolean deleteTraineeDetailsById(int id) {
@@ -89,12 +89,12 @@ public class TraineeServiceImpl implements TraineeService {
      *
      * This method is used to update trainee details by Id.
      *
-     * @param {@link String} employeeId
+     * @param {@link int} id
      * @param {@link TraineeDto} traineeDto
      *
      * @return boolean
      */
-    public TraineeDto updateTraineeById(TraineeDto traineeDto) {
+    public TraineeDto updateTraineeDetails(TraineeDto traineeDto) {
         return TraineeHelper.changeTraineeToDto(traineeRepository.save(TraineeHelper.changeDtoToTrainee(traineeDto)));
     }
 

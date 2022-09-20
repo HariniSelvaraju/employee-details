@@ -5,9 +5,6 @@ import java.time.Period;
 
 import org.springframework.stereotype.Component;
 
-import com.ideas2it.employeedetails.constant.EmployeeConstants;
-
-
 @Component
 public class TraineeDto {
 
