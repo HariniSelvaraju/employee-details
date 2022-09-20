@@ -49,4 +49,8 @@ public class TraineeController {
             return "Try again";
         }
     }
+
+    public void hi() {
+
+    }
 }
