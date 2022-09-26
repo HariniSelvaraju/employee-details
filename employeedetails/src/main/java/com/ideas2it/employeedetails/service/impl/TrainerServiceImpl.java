@@ -1,7 +1,6 @@
 package com.ideas2it.employeedetails.service.impl;
 
 import com.ideas2it.employeedetails.dto.TrainerDto;
-import com.ideas2it.employeedetails.filter.EmployeeFilter;
 import com.ideas2it.employeedetails.helper.TrainerHelper;
 import com.ideas2it.employeedetails.model.Trainee;
 import com.ideas2it.employeedetails.model.Trainer;
@@ -42,7 +41,7 @@ public class TrainerServiceImpl implements TrainerService {
      * </p>
      */
     public List<TrainerDto> getTrainerDetails() {
-        final Logger LOG = LoggerFactory.getLogger(EmployeeFilter.class);
+        final Logger LOG = LoggerFactory.getLogger(TrainerServiceImpl.class);
         List<Trainer> trainers = trainerRepository.findAll();
         if(trainers.isEmpty()){
             LOG.info("There is no Trainer Details Present");

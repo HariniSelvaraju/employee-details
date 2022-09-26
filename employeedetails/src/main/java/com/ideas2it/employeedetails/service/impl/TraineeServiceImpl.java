@@ -1,11 +1,12 @@
 package com.ideas2it.employeedetails.service.impl;
 
 import com.ideas2it.employeedetails.dto.TraineeDto;
-import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
 import com.ideas2it.employeedetails.helper.TraineeHelper;
 import com.ideas2it.employeedetails.model.Trainee;
 import com.ideas2it.employeedetails.repository.TraineeRepository;
 import com.ideas2it.employeedetails.service.TraineeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,16 +37,15 @@ public class TraineeServiceImpl implements TraineeService {
      *     This method is used to get all trainee details from database.
      * </p>
      */
-    public List<TraineeDto> getTraineeDetails() throws EmployeeRuntimeException {
+    public List<TraineeDto> getTraineeDetails() {
+        final Logger LOG = LoggerFactory.getLogger(TraineeServiceImpl.class);
         List<Trainee> trainees = traineeRepository.findAll();
         if(trainees.isEmpty()){
-            throw new EmployeeRuntimeException("No Details Found Here!");
-        } else {
-            return trainees.stream().
-                    map(trainee ->
-                            TraineeHelper.changeTraineeToDto(trainee)
-                    ).collect(Collectors.toList());
+            LOG.info("there is no Trainee Details Present");
         }
+        return trainees.stream().
+                map(trainee -> TraineeHelper.changeTraineeToDto(trainee)
+                ).collect(Collectors.toList());
     }
 
     /**

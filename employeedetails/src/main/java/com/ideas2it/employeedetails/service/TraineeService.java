@@ -12,7 +12,7 @@ import java.util.List;
 public interface TraineeService {
     TraineeDto addTrainee(TraineeDto traineeDto);
 
-    List<TraineeDto> getTraineeDetails() throws EmployeeRuntimeException;
+    List<TraineeDto> getTraineeDetails() ;
 
     TraineeDto getTraineeDetailsById(int traineeId);
 
