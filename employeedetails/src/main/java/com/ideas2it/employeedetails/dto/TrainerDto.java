@@ -2,13 +2,10 @@ package com.ideas2it.employeedetails.dto;
 
 import java.time.LocalDate;
 import java.time.Period;
-
-import org.springframework.stereotype.Component;
-
-@Component
+import java.util.ArrayList;
+import java.util.List;
 public class TrainerDto {
-
-    private int id;
+    private int idTrainer;
     private String trainerId;
     private String trainerName;
     private String designation;
@@ -21,14 +18,13 @@ public class TrainerDto {
     private String bloodGroup;
     private String maritalStatus;
     private int experience;
+    private List<TraineeDto> traineesDto = new ArrayList<>();
 
-    public TrainerDto(){
-    }
-    public TrainerDto(int id,String trainerId, String trainerName, String designation,
+    public TrainerDto(int idTrainer,String trainerId, String trainerName, String designation,
                       Long contactNumber, String emailId, LocalDate dateOfBirth,
                       String address, Float cgpa, String gender, String bloodGroup,
                       String maritalStatus, int experience) {
-        this.id = id;
+        this.idTrainer = idTrainer;
         this.trainerId = trainerId;
         this.trainerName = trainerName;
         this.designation = designation;
@@ -44,11 +40,11 @@ public class TrainerDto {
     }
 
     public int getId() {
-        return id;
+        return idTrainer;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int idTrainer) {
+        this.idTrainer = idTrainer;
     }
 
     public void setTrainerId(String trainerId) {
@@ -150,6 +146,14 @@ public class TrainerDto {
 
     public int getExperience() {
         return experience;
+    }
+
+    public List<TraineeDto> getTraineesDto() {
+        return traineesDto;
+    }
+
+    public void setTraineesDto(List<TraineeDto> traineesDto) {
+        this.traineesDto = traineesDto;
     }
 
 }

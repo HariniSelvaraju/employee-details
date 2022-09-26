@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name ="trainee")
@@ -16,10 +19,10 @@ public class Trainee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id",nullable = false)
-    private int id;
+    private int trainerId;
 
     @Column(name = "trainee_id",nullable = false)
-    private String traineeId;
+    private String employeeId;
 
     @Column(name = "trainee_name",nullable = false)
     private String traineeName;
@@ -57,14 +60,17 @@ public class Trainee {
     @Column(name = "batch")
     private int batch;
 
-    public Trainee() {}
+    @ManyToMany(mappedBy="trainees")
+    private List<Trainer> trainers = new ArrayList<>();
 
-    public Trainee(int id, String traineeId, String traineeName, String designation,
+    public Trainee(){}
+
+    public Trainee(int trainerId, String employeeId, String traineeName, String designation,
                    Long contactNumber, String emailId, LocalDate dateOfBirth,
                    String address, Float cgpa, String gender, String bloodGroup,
                    String maritalStatus, String taskName, int batch) {
-        this.id = id;
-        this.traineeId = traineeId;
+        this.trainerId = trainerId;
+        this.employeeId = employeeId;
         this.traineeName = traineeName;
         this.designation = designation;
         this.contactNumber = contactNumber;
@@ -79,20 +85,20 @@ public class Trainee {
         this.batch = batch;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int trainerId) {
+        this.trainerId = trainerId;
     }
 
     public int getId() {
-        return id;
+        return trainerId;
     }
 
-    public void setTraineeId(String TraineeId) {
-        this.traineeId = traineeId;
+    public void setTraineeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getTraineeId() {
-        return traineeId ;
+        return employeeId ;
     }
 
     public void setTraineeName(String traineeName) {
@@ -196,5 +202,12 @@ public class Trainee {
         return batch;
     }
 
+    public List<Trainer> getTrainers() {
+        return trainers;
+    }
+
+    public void setTrainers(List<Trainer> trainers) {
+        this.trainers = trainers;
+    }
 }
 

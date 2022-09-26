@@ -17,41 +17,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/trainee")
 public class TraineeController {
-    private TraineeService traineeService;
-    private TraineeDto traineeDto;
+    private final TraineeService traineeService;
 
     @Autowired
-    public TraineeController(TraineeService traineeService, TraineeDto traineeDto){
+    public TraineeController(TraineeService traineeService){
         this.traineeService = traineeService;
-        this.traineeDto = traineeDto;
     }
 
     /**
+     * <p>
      * this method is to add Trainee details to database
-     *
-     * @param {@link TraineeDto} traineeDto
+     * </p>
      */
     @PostMapping
-    public void insertTrainee(@RequestBody TraineeDto traineeDto){
-        traineeService.addTrainee(traineeDto);
+    public TraineeDto insertTrainee(@RequestBody TraineeDto traineeDto){
+        return traineeService.addTrainee(traineeDto);
     }
 
     /**
+     * <p>
      * this method is to get Trainee By Id(primary key).
-     *
-     * @param {@link int} id
-     *
-     * @return {@link TraineeDto}
+     * </p>
      */
     @GetMapping("/{id}")
-    public TraineeDto getTraineeById (@PathVariable("id") int id){
-        return traineeService.getTraineeDetailsById(id);
+    public TraineeDto getTraineeById (@PathVariable("id") int traineeId){
+        return traineeService.getTraineeDetailsById(traineeId);
     }
 
     /**
+     * <p>
      * this method is to get all Trainee Details
-     *
-     * @return {@link List<TraineeDto>}
+     * </p>
      */
     @GetMapping
     public List<TraineeDto> getAllTrainees(){
@@ -59,11 +55,9 @@ public class TraineeController {
     }
 
     /**
+     * <p>
      * this method is to add Trainee to database
-     *
-     * @param {@link TraineeDto} traineeDto
-     *
-     * @return {@link TraineeDto}
+     * </p>
      */
     @PutMapping("/update")
     public TraineeDto updateTrainee(@RequestBody TraineeDto traineeDto){
@@ -71,15 +65,13 @@ public class TraineeController {
     }
 
     /**
-     * this method is to delete Trainee Details
-     *
-     * @param {@link int} id
-     *
-     * @return {@link String}
+     * <p>
+     *     this method is to delete Trainee Details
+     * </p>
      */
     @DeleteMapping("/{id}")
-    public String deleteTrainee(@PathVariable("id") int id){
-        if (traineeService.deleteTraineeDetailsById(id)) {
+    public String deleteTrainee(@PathVariable("id") int traineeId){
+        if (traineeService.deleteTraineeDetailsById(traineeId)) {
             return "Deleted";
         } else {
             return "Try again";

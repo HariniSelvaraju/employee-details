@@ -2,51 +2,23 @@ package com.ideas2it.employeedetails.service;
 
 import com.ideas2it.employeedetails.dto.TraineeDto;
 import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
+import com.ideas2it.employeedetails.model.Trainee;
 
 import java.util.List;
 
+/**
+ * Deals with the trainee business logics.
+ */
 public interface TraineeService {
+    TraineeDto addTrainee(TraineeDto traineeDto);
 
-    /**
-     * method is used to add Trainee
-     *
-     * @param {@link TraineeDto} traineeDto
-     *
-     * @return void
-     */
-    void addTrainee(TraineeDto traineeDto);
-
-    /**
-     * method is used to get the list of all the trainee from Repository
-     *
-     * @return {@link List<TraineeDto>}
-     */
     List<TraineeDto> getTraineeDetails() throws EmployeeRuntimeException;
 
-    /**
-     * method is used to add Trainee
-     *
-     * @param {@link int} traineeDto
-     *
-     * @return {@link TraineeDto}
-     */
-    TraineeDto getTraineeDetailsById(int id);
+    TraineeDto getTraineeDetailsById(int traineeId);
 
-    /**
-     * method is used to add Trainee
-     *
-     * @param {@link Trainee} trainee
-     *
-     * @return {@link boolean}
-     */
-    boolean deleteTraineeDetailsById(int id);
+    boolean deleteTraineeDetailsById(int traineeId);
 
-    /**
-     * method is used to add Trainee
-     *
-     * @param {@link TraineeDto} traineeDto
-     *
-     * @return {@link TraineeDto}
-     */
-     TraineeDto updateTraineeDetails(TraineeDto traineeDto);
+    TraineeDto updateTraineeDetails(TraineeDto traineeDto);
+
+    Trainee getTraineeForTrainerService(int traineeId);
 }

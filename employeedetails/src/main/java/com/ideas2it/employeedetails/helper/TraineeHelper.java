@@ -1,21 +1,20 @@
 package com.ideas2it.employeedetails.helper;
 
 import com.ideas2it.employeedetails.dto.TraineeDto;
+import com.ideas2it.employeedetails.dto.TrainerDto;
 import com.ideas2it.employeedetails.model.Trainee;
+import com.ideas2it.employeedetails.model.Trainer;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-@Component
 public class TraineeHelper {
     /**
-     * this method is to convert TrainerDto to Trainer
-     *
-     * @param traineeDto
-     *
-     * @return Trainee
+     * <p>
+     *     this method is to convert TraineeDto to Trainee
+     * </p>
      */
     public static Trainee changeDtoToTrainee(TraineeDto traineeDto) {
-        Trainee trainee = new Trainee(traineeDto.getId(),
+        return new Trainee(traineeDto.getId(),
                 traineeDto.getTraineeId(),
                 traineeDto.getTraineeName(),
                 traineeDto.getDesignation(),
@@ -29,15 +28,12 @@ public class TraineeHelper {
                 traineeDto.getMaritalStatus(),
                 traineeDto.getTaskName(),
                 traineeDto.getBatch());
-        return trainee;
     }
 
     /**
-     * this method is to convert Trainer to TrainerDto
-     *
-     * @param trainee
-     *
-     * @return TraineeDto
+     * <p>
+     *     this method is to convert Trainee to TraineeDto
+     * </p>
      */
     public static TraineeDto changeTraineeToDto(Trainee trainee ) {
         TraineeDto traineeDto = new TraineeDto(trainee.getId(),
@@ -54,6 +50,28 @@ public class TraineeHelper {
                 trainee.getMaritalStatus(),
                 trainee.getTaskName(),
                 trainee.getBatch());
+        List<Trainer> trainers = trainee.getTrainers();
+        if (!trainers.isEmpty()) {
+            for (Trainer trainer : trainers) {
+                traineeDto.getTrainersDto().add(convertTrainerWithAssociation(trainer));
+            }
+        }
         return traineeDto;
+    }
+
+    public static TrainerDto convertTrainerWithAssociation(Trainer trainer) {
+        return new TrainerDto(trainer.getId(),
+                trainer.getTrainerId(),
+                trainer.getTrainerName(),
+                trainer.getDesignation(),
+                trainer.getContactNumber(),
+                trainer.getEmailId(),
+                trainer.getDateOfBirth(),
+                trainer.getAddress(),
+                trainer.getCgpa(),
+                trainer.getGender(),
+                trainer.getBloodGroup(),
+                trainer.getMaritalStatus(),
+                trainer.getExperience());
     }
 }

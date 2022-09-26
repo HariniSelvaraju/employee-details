@@ -5,48 +5,20 @@ import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
 
 import java.util.List;
 
+/**
+ * Deals with the trainer business logics.
+ */
 public interface TrainerService {
-    /**
-     * method is used to add Trainer
-     *
-     * @param {@link TrainerDto} trainerDto
-     *
-     * @return void
-     */
     TrainerDto addTrainer(TrainerDto trainerDto);
 
-    /**
-     * method is used to get the list of all the trainer from Dao
-     *
-     * @return {@link List<TrainerDto>}
-     */
     List<TrainerDto> getTrainerDetails() throws EmployeeRuntimeException;
 
-    /**
-     * method is used to add Trainer
-     *
-     * @param {@link int} trainerDto
-     *
-     * @return {@link TrainerDto}
-     */
-    TrainerDto getTrainerDetailsById(int id);
+    TrainerDto getTrainerDetailsById(int trainerId);
 
-    /**
-     * method is used to add Trainer
-     *
-     * @param {@link Trainer} trainer
-     *
-     * @return {@link boolean}
-     */
-    boolean deleteTrainerDetailsById(int id);
+    boolean deleteTrainerDetailsById(int trainerId);
 
-    /**
-     * method is used to add Trainer
-     *
-     * @param {@link TrainerDto} trainerDto
-     *
-     * @return {@link TrainerDto}
-     */
     TrainerDto updateTrainerDetails(TrainerDto trainerDto);
+
+    void associateTrainerToTrainees(int trainerId, int traineeId);
 
 }

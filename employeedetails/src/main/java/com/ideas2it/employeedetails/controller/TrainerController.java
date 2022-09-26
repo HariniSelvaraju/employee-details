@@ -17,19 +17,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/trainer")
 public class TrainerController {
-    private TrainerService trainerService;
-    private TrainerDto trainerDto;
+    private final TrainerService trainerService;
 
     @Autowired
-    public TrainerController(TrainerService trainerService, TrainerDto trainerDto){
+    public TrainerController(TrainerService trainerService){
         this.trainerService = trainerService;
-        this.trainerDto = trainerDto;
     }
 
     /**
+     * <p>
      * this method is to add Trainer details to database
-     *
-     * @param {@link TrainerDto} trainerDto
+     * </p>
      */
     @PostMapping
     public TrainerDto insertTrainer(@RequestBody TrainerDto trainerDto){
@@ -37,21 +35,19 @@ public class TrainerController {
     }
 
     /**
+     * <p>
      * this method is to get Trainer By Id(primary key).
-     *
-     * @param {@link int} id
-     *
-     * @return {@link TrainerDto}
+     * </p>
      */
     @GetMapping("/{id}")
-    public TrainerDto getTrainerById (@PathVariable("id") int id){
-        return trainerService.getTrainerDetailsById(id);
+    public TrainerDto getTrainerById (@PathVariable("id") int trainerId){
+        return trainerService.getTrainerDetailsById(trainerId);
     }
 
     /**
-     * this method is to get all Trainer Details
-     *
-     * @return {@link List<TrainerDto>}
+     * <p>
+     *  this method is to get all Trainer Details
+     * </p>
      */
     @GetMapping
     public List<TrainerDto> getAllTrainers(){
@@ -59,11 +55,9 @@ public class TrainerController {
     }
 
     /**
+     * <p>
      * this method is to add Trainer to database
-     *
-     * @param {@link TrainerDto} trainerDto
-     *
-     * @return {@link TrainerDto}
+     * </p>
      */
     @PutMapping("/update")
     public TrainerDto updateTrainer(@RequestBody TrainerDto trainerDto){
@@ -71,18 +65,26 @@ public class TrainerController {
     }
 
     /**
+     * <p>
      * this method is to delete Trainer Details
-     *
-     * @param {@link int} id
-     *
-     * @return {@link String}
+     * </p>
      */
     @DeleteMapping("/{id}")
-    public String deleteTrainer(@PathVariable("id") int id){
-        if (trainerService.deleteTrainerDetailsById(id)) {
+    public String deleteTrainer(@PathVariable("id") int trainerId){
+        if (trainerService.deleteTrainerDetailsById(trainerId)) {
             return "Deleted";
         } else {
-            return "Try after sometimes";
+            return "Try again";
         }
+    }
+
+    /**
+     * <p>
+     *     this method is to associate Trainee to Trainer
+     * </p>
+     */
+    @PostMapping("/{trainerId}/{traineeId}")
+    private void associateTrainerToTrainees(@PathVariable int trainerId, @PathVariable int traineeId) {
+        trainerService.associateTrainerToTrainees(trainerId, traineeId);
     }
 }

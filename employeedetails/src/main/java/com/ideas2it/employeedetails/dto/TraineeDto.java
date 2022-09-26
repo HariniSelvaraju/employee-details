@@ -2,12 +2,10 @@ package com.ideas2it.employeedetails.dto;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class TraineeDto {
-
     private int id;
     private String traineeId;
     private String traineeName;
@@ -22,9 +20,8 @@ public class TraineeDto {
     private String maritalStatus;
     private String taskName;
     private int batch;
+    private List<TrainerDto> trainersDto = new ArrayList<>();
 
-    public TraineeDto() {
-    }
     public TraineeDto(int id, String traineeId, String traineeName, String designation,
                       Long contactNumber,String emailId, LocalDate dateOfBirth,
                       String address,Float cgpa, String gender,
@@ -162,4 +159,11 @@ public class TraineeDto {
         return batch;
     }
 
+    public List<TrainerDto> getTrainersDto() {
+        return trainersDto;
+    }
+
+    public void setTrainersDto(List<TrainerDto> trainersDto) {
+        this.trainersDto = trainersDto;
+    }
 }

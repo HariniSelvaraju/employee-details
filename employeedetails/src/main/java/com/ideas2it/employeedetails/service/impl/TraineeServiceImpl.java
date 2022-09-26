@@ -3,9 +3,7 @@ package com.ideas2it.employeedetails.service.impl;
 import com.ideas2it.employeedetails.dto.TraineeDto;
 import com.ideas2it.employeedetails.exception.EmployeeRuntimeException;
 import com.ideas2it.employeedetails.helper.TraineeHelper;
-import com.ideas2it.employeedetails.helper.TrainerHelper;
 import com.ideas2it.employeedetails.model.Trainee;
-import com.ideas2it.employeedetails.model.Trainer;
 import com.ideas2it.employeedetails.repository.TraineeRepository;
 import com.ideas2it.employeedetails.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +15,26 @@ import java.util.stream.Collectors;
 
 @Service
 public class TraineeServiceImpl implements TraineeService {
-    private TraineeRepository traineeRepository;
-    private TraineeHelper traineeHelper;
-    private TraineeDto traineeDto;
+
+    private final TraineeRepository traineeRepository;
 
     @Autowired
-    public TraineeServiceImpl(TraineeRepository traineeRepository, TraineeDto traineeDto, TraineeHelper traineeHelper){
+    public TraineeServiceImpl(TraineeRepository traineeRepository){
         this.traineeRepository = traineeRepository;
-        this.traineeDto = traineeDto;
-        this.traineeHelper = traineeHelper;
     }
     /**
-     *
-     * This method is used to set traineeDto objects to trainee.
-     *
-     * @param {@link TraineeDto} traineeDto
-     *
-     * @return void
+     * <p>
+     *     This method is used to set traineeDto objects to trainee.
+     * </p>
      */
-    public void addTrainee(TraineeDto traineeDto) {
-        traineeRepository.save(TraineeHelper.changeDtoToTrainee(traineeDto));
+    public TraineeDto addTrainee(TraineeDto traineeDto) {
+        return TraineeHelper.changeTraineeToDto(traineeRepository.save(TraineeHelper.changeDtoToTrainee(traineeDto)));
     }
 
     /**
-     *
-     * This method is used to get all trainee details from database.
-     *
-     * @return {@link List<TraineeDto>}
+     * <p>
+     *     This method is used to get all trainee details from database.
+     * </p>
      */
     public List<TraineeDto> getTraineeDetails() throws EmployeeRuntimeException {
         List<Trainee> trainees = traineeRepository.findAll();
@@ -51,33 +42,33 @@ public class TraineeServiceImpl implements TraineeService {
             throw new EmployeeRuntimeException("No Details Found Here!");
         } else {
             return trainees.stream().
-                    map(trainee -> {
-                        return TraineeHelper.changeTraineeToDto(trainee);
-                    }).collect(Collectors.toList());
+                    map(trainee ->
+                            TraineeHelper.changeTraineeToDto(trainee)
+                    ).collect(Collectors.toList());
         }
     }
 
     /**
-     *
-     * This method is used to get a trainee details by Id(primary key in database)
-     *
-     * @param {@link String} TrainerId
-     *
-     * @return {@link TraineeDto}
+     * <p>
+     *     This method is used to get a trainee details by Id(primary key in database)
+     * </p>
      */
-    public TraineeDto getTraineeDetailsById(int id) {
-        Trainee trainee = traineeRepository.findById(id).get();
-        return TraineeHelper.changeTraineeToDto(trainee);
+    public TraineeDto getTraineeDetailsById(int traineeId) {
+        TraineeDto traineeDto = null;
+        Optional<Trainee> trainee = traineeRepository.findById(traineeId);
+        if(trainee.isPresent()) {
+            traineeDto = TraineeHelper.changeTraineeToDto(trainee.get());
+        }
+        return traineeDto;
     }
 
     /**
-     * This method is used to delete a trainee details by Id.
-     *
-     * @param {@link int} TrainerId
-     * @return {@link boolean}
+     * <p>
+     *     This method is used to delete a trainee details by Id.
+     * </p>
      */
-    public boolean deleteTraineeDetailsById(int id) {
-        Optional<Trainee> trainee = traineeRepository.findById(id);
+    public boolean deleteTraineeDetailsById(int traineeId) {
+        Optional<Trainee> trainee = traineeRepository.findById(traineeId);
         if(trainee.isPresent()) {
             traineeRepository.delete(trainee.get());
             return true;
@@ -86,17 +77,23 @@ public class TraineeServiceImpl implements TraineeService {
     }
 
     /**
-     *
-     * This method is used to update trainee details by Id.
-     *
-     * @param {@link int} id
-     * @param {@link TraineeDto} traineeDto
-     *
-     * @return boolean
+     * <p>
+     *     This method is used to update trainee details by Id.
+     * </p>
      */
     public TraineeDto updateTraineeDetails(TraineeDto traineeDto) {
         return TraineeHelper.changeTraineeToDto(traineeRepository.save(TraineeHelper.changeDtoToTrainee(traineeDto)));
     }
 
+    public Trainee getTraineeForTrainerService(int traineeId) {
+        Optional<Trainee> traineeOptional = traineeRepository.findById(traineeId);
+        Trainee trainee = null;
+        if (traineeOptional.isPresent()) {
+            trainee = traineeOptional.get();
+            System.out.println("yes");
+        }
+        System.out.println("no");
+        return trainee;
+    }
 
 }

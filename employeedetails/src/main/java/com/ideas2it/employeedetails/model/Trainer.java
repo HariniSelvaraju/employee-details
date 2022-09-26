@@ -1,13 +1,20 @@
 package com.ideas2it.employeedetails.model;
 
 import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name ="trainer")
@@ -15,11 +22,11 @@ public class Trainer {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id",nullable = false)
-    private int id;
+    @Column(name = "id_trainer",nullable = false)
+    private int trainerId;
 
     @Column(name = "trainer_id",nullable = false)
-    private String trainerId;
+    private String employeeId;
 
     @Column(name = "trainer_name",nullable = false)
     private String trainerName;
@@ -54,14 +61,20 @@ public class Trainer {
     @Column
     private int experience;
 
-    public Trainer() {}
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "trainee_trainer",
+            joinColumns = {@JoinColumn (name = "id_trainer")},
+            inverseJoinColumns = { @JoinColumn(name = "id") })
+    private List<Trainee> trainees = new ArrayList<>();
 
-    public Trainer(int id,String trainerId, String trainerName, String designation,
+    public Trainer(){}
+
+    public Trainer(int trainerId,String employeeId, String trainerName, String designation,
                    Long contactNumber,String emailId, LocalDate dateOfBirth,
                    String address,Float cgpa, String gender,
                    String bloodGroup,String maritalStatus, int experience) {
-        this.id = id;
         this.trainerId = trainerId;
+        this.employeeId = employeeId;
         this.trainerName = trainerName;
         this.designation = designation;
         this.contactNumber = contactNumber;
@@ -75,19 +88,19 @@ public class Trainer {
         this.experience = experience;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int trainerId) {
+        this.trainerId = trainerId;
     }
     public int getId() {
-        return id;
+        return trainerId;
     }
 
-    public void setTrainerId(String trainerId) {
-        this.trainerId = trainerId;
+    public void setTrainerId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getTrainerId() {
-        return trainerId ;
+        return employeeId ;
     }
 
     public void setTrainerName(String trainerName) {
@@ -181,5 +194,13 @@ public class Trainer {
 
     public int getExperience() {
         return experience;
+    }
+
+    public List<Trainee> getTrainees() {
+        return trainees;
+    }
+
+    public void setTrainees(List<Trainee> trainees) {
+        this.trainees = trainees;
     }
 }
